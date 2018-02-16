@@ -48,4 +48,9 @@ public class Source_reader implements Reader{
         return value;
 
     }
+
+    @Override
+    public boolean ready() {
+        return true;
+    }
 }

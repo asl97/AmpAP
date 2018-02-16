@@ -28,15 +28,6 @@ import com.manor.currentwidget.library.CurrentReaderFactory;
 import java.util.Arrays;
 import java.util.Locale;
 
-/*
-String key = "myInt";
-int valueToSave = 10;
-
-SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-SharedPreferences.Editor editor = sharedPref.edit();
-editor.putInt(key, valueToSave).commit();
-*/
-
 class Spinner_cur implements AdapterView.OnItemSelectedListener{
     private MainActivity act;
     Spinner_cur(MainActivity act){
@@ -125,6 +116,11 @@ public class MainActivity extends Activity {
         public long read() {
             return CurrentReaderFactory.getValue();
         }
+
+        @Override
+        public boolean ready() {
+            return true;
+        }
     }
 
     class amp_avg_reader implements Reader{
@@ -134,8 +130,13 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        public long read() {
+        public long read(){
             return this.amp.avg;
+        }
+
+        @Override
+        public boolean ready() {
+            return this.amp.has_avg;
         }
     }
 
@@ -240,15 +241,13 @@ public class MainActivity extends Activity {
             TextView max = findViewById(R.id.Max);
 
             AmpStats data = amp.put(reader_cur.read());
-            // used for timing purposes
-            // to give it enough time to properly calculate the average
-            //if (data.has_avg) {
-            //    average.setTextSize(128);
+            if (reader_avg.ready()) {
+                average.setTextSize(128);
                 average.setText(String.format(getString(R.string.average), reader_avg.read()));
-            //}else{
-            //    average.setTextSize(64);
-            //    average.setText(R.string.Gathering_Data);
-            //}
+            }else{
+                average.setTextSize(64);
+                average.setText(R.string.Gathering_Data);
+            }
 
             current.setText(String.format(getString(R.string.current), data.cur));
             min.setText(String.format(getString(R.string.min), data.min));
