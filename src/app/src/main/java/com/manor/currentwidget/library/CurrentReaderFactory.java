@@ -160,15 +160,6 @@ public class CurrentReaderFactory {
 			}
 		}
 
-
-        // Samsung catchall
-        if (CurrentReaderFactory.BUILD_MODEL.startsWith("sm-")) {
-            f = new File("/sys/class/power_supply/battery/current_now");
-            if (f.exists()) {
-                return OneLineReader.getValue(f, false);
-            }
-        }
-
 		// htc desire hd / desire z / inspire?
 		// htc evo view tablet
 		if (CurrentReaderFactory.BUILD_MODEL.contains("desire hd")
