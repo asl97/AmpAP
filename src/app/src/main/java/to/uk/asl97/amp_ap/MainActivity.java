@@ -161,6 +161,7 @@ public class MainActivity extends Activity {
     private void sources_init(){
         // This is where we add our own readers
         this.sources.linkedmap_cur.put("__default__", get_default_reader_cur());
+        this.sources.linkedmap_cur.put("currentwidget_reader", new currentwidget_reader());
         this.sources.linkedmap_avg.put("__default__", get_default_reader_avg());
         this.sources.linkedmap_avg.put("Current average", new amp_avg_reader(this.amp));
     }
