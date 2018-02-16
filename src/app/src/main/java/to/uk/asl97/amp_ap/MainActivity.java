@@ -1,11 +1,13 @@
 package to.uk.asl97.amp_ap;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -140,6 +142,44 @@ public class MainActivity extends Activity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    class a5_current_now implements Reader {
+
+        @Override
+        public long read() {
+            BatteryManager mBatteryManager = (BatteryManager)getSystemService(Context.BATTERY_SERVICE);
+            long cur = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
+            if (cur != Long.MIN_VALUE) {
+                return cur/1000;
+            }
+            return 0;
+        }
+
+        @Override
+        public boolean ready() {
+            return true;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    class a5_current_avg implements Reader {
+
+        @Override
+        public long read() {
+            BatteryManager mBatteryManager = (BatteryManager)getSystemService(Context.BATTERY_SERVICE);
+            long cur = mBatteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
+            if (cur != Long.MIN_VALUE) {
+                return cur/1000;
+            }
+            return 0;
+        }
+
+        @Override
+        public boolean ready() {
+            return true;
+        }
+    }
+
     private Reader get_default_reader_cur(){
         // tested by asl97
         if (BUILD_MODEL.contains("sm-t215")){
@@ -164,6 +204,11 @@ public class MainActivity extends Activity {
         this.sources.linkedmap_cur.put("currentwidget_reader", new currentwidget_reader());
         this.sources.linkedmap_avg.put("__default__", get_default_reader_avg());
         this.sources.linkedmap_avg.put("Current average", new amp_avg_reader(this.amp));
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            this.sources.linkedmap_cur.put("a5 CURRENT_NOW", new a5_current_now());
+            this.sources.linkedmap_avg.put("a5 CURRENT_AVG", new a5_current_avg());
+        }
     }
 
     private void init(){
