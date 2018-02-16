@@ -40,7 +40,6 @@ class Spinner_cur implements AdapterView.OnItemSelectedListener{
         String item = parent.getItemAtPosition(position).toString();
         this.act.c_source_cur = item;
         this.act.reader_cur = this.act.sources.linkedmap_cur.get(item);
-        this.act.amp.clear();
 
         SharedPreferences sharedPref = this.act.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -64,7 +63,6 @@ class Spinner_avg implements AdapterView.OnItemSelectedListener{
         String item = parent.getItemAtPosition(position).toString();
         this.act.c_source_avg = item;
         this.act.reader_avg = this.act.sources.linkedmap_avg.get(item);
-        this.act.amp.clear();
 
         SharedPreferences sharedPref = this.act.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -243,6 +241,8 @@ public class MainActivity extends Activity {
     }
 
     void update_information(){
+        this.amp.clear();
+        amp.init(this.reader_cur.read());
         TextView stats = findViewById(R.id.Stats);
         stats.setText(String.format(getString(R.string.Stats), this.c_source_cur, this.c_source_avg, BUILD_MODEL));
     }
