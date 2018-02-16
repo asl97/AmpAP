@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Amp-AP</string>
+    <string name="xxx">xxx</string>
+    <string name="bar1">bar1</string>
+    <string name="bar2">bar2</string>
+    <string name="bar3">bar3</string>
+    <string name="bar4">bar4</string>
+    <string name="bar5">bar5</string>
+    <string name="trans_grey">trans_grey</string>
+    <string name="Gathering_Data">Gathering Data</string>
+    <string name="min">min: %d</string>
+    <string name="max">max: %d</string>
+    <string name="current">cur: %d</string>
+    <string name="average">%d</string>
+    <string name="Stats">Sources:\n\tCurrent: %s\n\tAverage: %s\nModel ID: %s</string>
+</resources>
