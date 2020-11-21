@@ -291,6 +291,6 @@ public class CurrentReaderFactory {
 			return OneLineReader.getValue(f, false);
 		}
 
-		return Long.valueOf(-1);
+		return Long.valueOf(0);
 	}
 }

@@ -4,7 +4,7 @@ import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import java.util.Arrays;
 
-public class Amp {
+public class AmpAvg {
     private CircularFifoQueue<Long> data;
     private Long max;
     private Long min;
@@ -14,13 +14,14 @@ public class Amp {
     public long avg;
     public long cur;
 
-    public Amp() {
+    public AmpAvg() {
         this.data = new CircularFifoQueue<>(30);
     }
 
     public void init(Long current){
         this.max = current;
         this.min = current;
+        this.last_stat = new AmpStats(this.has_avg, this.avg, current, this.max, this.min);
         this.put(current);
     }
 
@@ -52,7 +53,7 @@ public class Amp {
             this.avg = 0;
         }
 
-        this.last_stat = new AmpStats(has_avg, avg, current, this.max, this.min);
+        this.last_stat = new AmpStats(this.has_avg, this.avg, current, this.max, this.min);
         return this.last_stat;
     }
 
