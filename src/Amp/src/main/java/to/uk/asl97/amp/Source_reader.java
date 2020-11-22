@@ -32,13 +32,13 @@ public class Source_reader implements Reader{
             ex.printStackTrace();
         }
 
-        Long value = null;
+        Long value = Long.valueOf(0);
 
         if (text != null) {
             try	{
                 value = Long.parseLong(text);
             } catch (NumberFormatException nfe) 	{
-                value = null;
+                value = Long.valueOf(0);
             }
 
             if (this.convertToMillis && value != null) {
